@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "twitchbot"
+version = "1.0.0"
+authors = [
+    {name = "Ferdinand Theil", email = "f.p.theil@proton.me"},
+]
+description = "Twitch bot"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    'twitchio',
+]
+
+[project.scripts]
+twitchbot = "twitchbot.__main__:main"
+
+[project.optional-dependencies]
+test = [
+    'pytest~=7.3.2'
+]
+dev = [
+    'black',
+    'flake8',
+    'flake8-bugbear',
+    'python-dotenv',
+    'pre-commit',
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests"
+]
+
+[tool.black]
+target-version = ['py39', 'py310', 'py311', 'py312']
