@@ -18,6 +18,9 @@ classifiers = [
 ]
 dependencies = [
     'twitchio',
+    'chat-downloader',
+    'pandas',
+    'scikit-learn',
 ]
 
 [project.scripts]
