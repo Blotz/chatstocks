@@ -48,7 +48,8 @@ class KeywordAnalysis:
 
         missing_features = np.setdiff1d(new_features, old_features)
 
-        if len(missing_features) > 0:  # Add the missing features to the vocab
+        if len(missing_features) > 0:
+            # Add the missing features to the old features
             old_features = np.append(old_features, missing_features)
             old_features = np.sort(old_features)
 
@@ -56,18 +57,19 @@ class KeywordAnalysis:
             vocab_dict = {feature: i for i, feature in enumerate(old_features)}
             self.vectorizer.vocabulary_ = vocab_dict
 
-        # Generate the new matrix
-        new_matrix = self.vectorizer.transform(data)
-
-        if len(missing_features) > 0:
             # Add what new features are missing and add them to the old features
             sorted_indices = np.argsort(old_features)
 
+            # Resize the matrix to fit the vocab
             self.document_term_matrix.resize(
                 (self.document_term_matrix.shape[0], len(old_features))
             )
             self.document_term_matrix = self.document_term_matrix[:, sorted_indices]
 
+        # Generate the new matrix
+        new_matrix = self.vectorizer.transform(data)
+
+        # Add the new matrix to the old matrix
         self.document_term_matrix = scipy.sparse.vstack(
             [self.document_term_matrix, new_matrix]
         )
