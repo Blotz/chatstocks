@@ -41,3 +41,7 @@ def filter_chat(chat):
         yield new_message
 
     log.info("Chat saved to chat.csv!")
+
+
+def load_chat():
+    return pd.read_csv("chat.csv")
